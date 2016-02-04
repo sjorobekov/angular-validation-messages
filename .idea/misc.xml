@@ -62,7 +62,6 @@
     <breakpoint_rules />
     <ui_properties />
   </component>
-  <component name="ProjectRootManager" version="2" />
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
@@ -91,4 +90,3 @@
     </states>
   </component>
 </project>
-

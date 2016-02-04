@@ -85,6 +85,27 @@ describe('base usage: model directive', function () {
     expect(messageElement.text()).toBe(helper.getErrorMessage({minlength: true}, input));
   });
 
+  it('should add errors to target element if it is defined', function () {
+    var form = createElem('<form vmsg-form>' +
+        '<input ng-model="test" required data-target="putErrors" vmsg/>' +
+            '<div id="putErrors"></div>' +
+        '</form>');
+
+    var input = form.find('input');
+    var targetElement = form.find('div');
+    expect(targetElement.text()).toBe('');
+
+    input.triggerHandler('blur');
+    $scope.$digest();
+
+    setTimeout(function() {
+      expect(targetElement.text()).not.toBe('');
+      $scope.test = 'something';
+      input.triggerHandler('blur');
+      $scope.$digest();
+      expect(targetElement.text()).toBe('');
+    }, 1);
+  });
 });
 
 describe('option overrides: model directive', function () {

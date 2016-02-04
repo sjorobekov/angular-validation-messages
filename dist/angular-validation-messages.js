@@ -184,6 +184,7 @@ angular.module('gg.vmsgs', []);
             var formOpts = ctrls[1].getOptions();
             var opts = ValidationMessagesHelper.getOptions(localOpts, formOpts);
             var messageElem = ValidationMessagesHelper.createMessageElement(scope, opts);
+            var targetElement = (!!attrs.target) ? angular.element(document.getElementById(attrs.target)) : null;
             var ngModelCtrl = ctrls[0];
             var elemParent = elem.parent();
 
@@ -196,7 +197,6 @@ angular.module('gg.vmsgs', []);
                 }
               } else {
                 if (elemParent.hasClass(opts.parentContainerClassName)) {
-                  console.log('opts.parentSuccessClassName', opts.parentSuccessClassName);
                   elemParent.addClass(opts.parentSuccessClassName);
                 }
               }
@@ -211,7 +211,12 @@ angular.module('gg.vmsgs', []);
             };
 
             elem.data('message-element', messageElem);
-            elem.after(messageElem);
+
+            if (!!targetElement) {
+              targetElement.append(messageElem);
+            } else {
+              elem.after(messageElem);
+            }
 
             //set up show message trigger
             switch (opts.showTrigger) {

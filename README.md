@@ -110,6 +110,22 @@ parentSuccessClassName | adds (or removes) a class name to a field's parent elem
 parentContainerClassName | only if this class name is present in the parent element, parentErrorClassName and parentSuccessClassName will be applied | any string | 'form-group'  
 errorMessages | allows you to override error messages for specific errors. The error messages passed will be combined with the default ones (using angular.extend) | any valid object | please check src/helper.js:36  
 
+###Custom Messages Container
+
+By default module adds messages just after input tag.
+If you need to put messages to custom place, use "target" attribute:
+```
+<form name="myForm" ng-submit="doSomething()" vmsgs-form>
+    <div class="input-group">
+        <span class="input-group-addon">
+            <span class="input-group-addon">$</span>
+        </span>
+        <input class="form-control" name="price" type="text"
+            ng-model="price" required target="priceErrors" vmsg>
+    </div>
+    <div id="priceErrors"></div>
+</form>
+```
 
 ##Caveats
 *The vmsg-form directive will add the "novalidate" attribute automatically, so the browser doesn't catch the validation issues by itself.
