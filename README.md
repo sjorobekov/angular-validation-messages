@@ -121,7 +121,7 @@ If you need to put messages to custom place, use "target" attribute:
             <span class="input-group-addon">$</span>
         </span>
         <input class="form-control" name="price" type="text"
-            ng-model="price" required target="priceErrors" vmsg>
+            ng-model="price" required target="#priceErrors" vmsg>
     </div>
     <div id="priceErrors"></div>
 </form>

@@ -4,7 +4,11 @@
 (function () {
   'use strict';
   angular.module('gg.vmsgs')
-    .directive('vmsg', function (ValidationMessagesHelper, $parse) {
+    .directive('vmsg', function (ValidationMessagesHelper, $parse, $document) {
+
+      var bodyElem = $document.find('body');
+      var $el = angular.element;
+
       return {
         require: ['ngModel', '^vmsgForm'],
         restrict: 'A',
@@ -14,7 +18,7 @@
             var formOpts = ctrls[1].getOptions();
             var opts = ValidationMessagesHelper.getOptions(localOpts, formOpts);
             var messageElem = ValidationMessagesHelper.createMessageElement(scope, opts);
-            var targetElement = (!!attrs.target) ? angular.element(document.getElementById(attrs.target)) : null;
+            var targetElement = (!!attrs.target) ? $el(bodyElem[0].querySelector(attrs.target)) : null;
             var ngModelCtrl = ctrls[0];
             var elemParent = elem.parent();
 
@@ -43,6 +47,7 @@
             elem.data('message-element', messageElem);
 
             if (!!targetElement) {
+              elem.data('target-element', targetElement);
               targetElement.append(messageElem);
             } else {
               elem.after(messageElem);
